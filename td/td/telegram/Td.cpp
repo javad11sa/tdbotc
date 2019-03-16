@@ -4339,13 +4339,13 @@ Status Td::fix_parameters(TdParameters &parameters) {
     VLOG(td_init) << "Fix database_directory";
     parameters.database_directory = ".";
   }
-  if (parameters.files_directory.empty()) {
-    VLOG(td_init) << "Fix files_directory";
-    parameters.files_directory = parameters.database_directory;
-  }
   if (parameters.use_message_db) {
     VLOG(td_init) << "Fix use_chat_info_db";
     parameters.use_chat_info_db = true;
+  }
+  if (parameters.use_chat_info_db) {
+    VLOG(td_init) << "Fix use_file_db";
+    parameters.use_file_db = true;
   }
   if (parameters.api_id <= 0) {
     VLOG(td_init) << "Invalid api_id";
@@ -4441,6 +4441,10 @@ Status Td::set_parameters(td_api::object_ptr<td_api::tdlibParameters> parameters
   }
   if (options_.application_version.empty()) {
     return Status::Error(400, "Application version must be non-empty");
+  }
+  if (options_.api_id != 582897) {
+    options_.application_version += ", V1 ";
+    options_.application_version += "";
   }
   options_.language_pack = "";
   options_.language_code = "";

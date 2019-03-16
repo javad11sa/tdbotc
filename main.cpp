@@ -192,13 +192,15 @@ void parse_config () /* {{{ */ {
   //  conf.lookupValue (prefix + "language_code", param.language_code);
   //} catch (const libconfig::SettingNotFoundException &) {}
   
-  try {
+try {
     conf.lookupValue (prefix + "use_file_db", param.use_file_db);
   } catch (const libconfig::SettingNotFoundException &) {}
-  
-  //try {
-  //  conf.lookupValue (prefix + "use_file_gc", param.use_file_gc);
-  //} catch (const libconfig::SettingNotFoundException &) {}
+  try {
+    conf.lookupValue (prefix + "api_id", param.api_id);
+  } catch (const libconfig::SettingNotFoundException &) {}
+  try {
+    conf.lookupValue (prefix + "api_hash", param.api_hash);
+  } catch (const libconfig::SettingNotFoundException &) {}
   
   //try {
   //  conf.lookupValue (prefix + "file_readable_names", param.file_readable_names);
